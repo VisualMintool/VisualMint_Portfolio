@@ -220,8 +220,8 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("📤 Sending data:", formData);
 
     try {
-      // IMPORTANT: Change this URL to your deployed backend URL after deployment
-      const BACKEND_URL = "http://localhost:3000/send-email";
+      // ✅ UPDATED: Now using live Vercel backend
+      const BACKEND_URL = "https://visual-mints-backend.vercel.app/send-email";
 
       console.log("🌐 Fetching:", BACKEND_URL);
 
@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
       loadingAnimation.classList.remove("active");
       submitBtn.disabled = false;
       submitBtn.style.opacity = "1";
-      formMessage.textContent = "Failed to send message ❌ Make sure backend is running on localhost:3000";
+      formMessage.textContent = "Failed to send message ❌ Please try again later.";
       formMessage.classList.add("error");
     }
   });
