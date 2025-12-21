@@ -1269,6 +1269,8 @@ nav ul.nav-links li .nav-link.active::before {
   border-radius: 16px;
   border: 1px solid rgba(0, 255, 204, 0.2);
   transition: all 0.3s ease;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .contact-item:hover {
@@ -1279,6 +1281,12 @@ nav ul.nav-links li .nav-link.active::before {
 
 .contact-icon {
   font-size: 1.8rem;
+  flex-shrink: 0;
+}
+
+.contact-item > div {
+  min-width: 0;
+  overflow: hidden;
 }
 
 .contact-label {
@@ -1293,6 +1301,9 @@ nav ul.nav-links li .nav-link.active::before {
   text-decoration: none;
   font-weight: 500;
   transition: all 0.3s ease;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  display: block;
 }
 
 .contact-item a:hover {
@@ -1574,10 +1585,21 @@ footer {
   .contactInfo {
     flex-direction: column;
     gap: 16px;
+    padding: 0 10px;
   }
 
   .contact-item {
     width: 100%;
+    max-width: 100%;
+    padding: 16px 20px;
+    box-sizing: border-box;
+  }
+
+  .contact-item a {
+    font-size: 0.9rem;
+    word-break: break-all;
+    overflow-wrap: break-word;
+    hyphens: auto;
   }
 
   .footer-content {
@@ -1619,6 +1641,18 @@ footer {
 
   .stat-number {
     font-size: 1.6rem;
+  }
+
+  .contact-item {
+    padding: 14px 16px;
+  }
+
+  .contact-item a {
+    font-size: 0.85rem;
+  }
+
+  .contact-icon {
+    font-size: 1.5rem;
   }
 }
 
