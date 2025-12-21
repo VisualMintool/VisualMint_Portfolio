@@ -1,11 +1,11 @@
-// ========================================== 
-// INITIALIZATION & DEBUG 
-// ========================================== 
+// ==========================================
+// INITIALIZATION & DEBUG
+// ==========================================
 console.log("🚀 Script loaded successfully!");
 
-// ========================================== 
-// SMOOTH SCROLLING 
-// ========================================== 
+// ==========================================
+// SMOOTH SCROLLING
+// ==========================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
@@ -19,9 +19,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// ========================================== 
-// NAVBAR SCROLL EFFECT & ACTIVE LINKS 
-// ========================================== 
+// ==========================================
+// NAVBAR SCROLL EFFECT & ACTIVE LINKS
+// ==========================================
 const header = document.querySelector('header');
 const navLinks = document.querySelectorAll('.nav-link');
 
@@ -50,9 +50,9 @@ window.addEventListener('scroll', () => {
   });
 });
 
-// ========================================== 
-// MOBILE MENU TOGGLE 
-// ========================================== 
+// ==========================================
+// MOBILE MENU TOGGLE
+// ==========================================
 const hamburger = document.querySelector('.hamburger');
 const navLinksContainer = document.querySelector('.nav-links');
 
@@ -69,9 +69,9 @@ navLinks.forEach(link => {
   });
 });
 
-// ========================================== 
-// COUNTER ANIMATION 
-// ========================================== 
+// ==========================================
+// COUNTER ANIMATION
+// ==========================================
 function animateCounter(element, target, duration = 2000) {
   let start = 0;
   const increment = target / (duration / 16);
@@ -102,9 +102,9 @@ const observer = new IntersectionObserver((entries) => {
 const heroStats = document.querySelector('.hero-stats');
 if (heroStats) observer.observe(heroStats);
 
-// ========================================== 
-// SERVICE CARDS TOGGLE 
-// ========================================== 
+// ==========================================
+// SERVICE CARDS TOGGLE
+// ==========================================
 const serviceCards = document.querySelectorAll('.serviceCard');
 
 serviceCards.forEach(card => {
@@ -117,9 +117,9 @@ serviceCards.forEach(card => {
   });
 });
 
-// ========================================== 
-// PORTFOLIO MODAL 
-// ========================================== 
+// ==========================================
+// PORTFOLIO MODAL
+// ==========================================
 const modal = document.getElementById('fullViewModal');
 const modalImg = document.getElementById('fullImage');
 const closeModal = document.querySelector('.close-modal');
@@ -143,9 +143,9 @@ modal.addEventListener('click', (e) => {
   }
 });
 
-// ========================================== 
-// CONFETTI ANIMATION 
-// ========================================== 
+// ==========================================
+// CONFETTI ANIMATION
+// ==========================================
 function createConfetti() {
   const colors = ['#00ffcc', '#00b8d4', '#ff00ff', '#ffffff'];
   for (let i = 0; i < 50; i++) {
@@ -177,15 +177,15 @@ function createConfetti() {
   }
 }
 
-// ========================================== 
-// CONTACT FORM WITH BACKEND INTEGRATION 
-// ========================================== 
+// ==========================================
+// CONTACT FORM WITH BACKEND INTEGRATION
+// ==========================================
 console.log("🔍 Setting up contact form...");
 
 // Function to initialize contact form
 const initContactForm = () => {
   console.log("✅ Initializing contact form!");
-  
+
   const contactForm = document.getElementById("contactForm");
   const formMessage = document.getElementById("formMessage");
   const loadingAnimation = document.getElementById("loadingAnimation");
@@ -273,10 +273,10 @@ if (document.readyState === 'loading') {
   initContactForm();
 }
 
-// ========================================== 
-// CURSOR TRAIL EFFECT 
-// ========================================== 
-// ===== INTENSITY SETTINGS - CUSTOMIZE HERE ===== 
+// ==========================================
+// CURSOR TRAIL EFFECT
+// ==========================================
+// ===== INTENSITY SETTINGS - CUSTOMIZE HERE =====
 const TRAIL_CONFIG = {
   // Size of each trail dot (px)
   // Subtle: 6-8, Medium: 10-14, Intense: 16-24
@@ -305,7 +305,7 @@ const TRAIL_CONFIG = {
   // Add blur effect (true/false)
   blur: false
 };
-// ===== END OF SETTINGS ===== 
+// ===== END OF SETTINGS =====
 
 // Create container for trail dots
 const trailContainer = document.createElement('div');
