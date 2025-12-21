@@ -224,7 +224,7 @@ const initContactForm = () => {
     console.log("📤 Sending data:", formData);
 
     try {
-      const BACKEND_URL = "https://visual-mints-backend.vercel.app/";
+      const BACKEND_URL = "https://visual-mints-backend.vercel.app/send-email";
       console.log("🌐 Fetching:", BACKEND_URL);
 
       const response = await fetch(BACKEND_URL, {
