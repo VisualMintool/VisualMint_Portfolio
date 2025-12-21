@@ -1,24 +1,27 @@
-// ==========================================
-// INITIALIZATION & DEBUG
-// ==========================================
+// ========================================== 
+// INITIALIZATION & DEBUG 
+// ========================================== 
 console.log("🚀 Script loaded successfully!");
 
-// ==========================================
-// SMOOTH SCROLLING
-// ==========================================
+// ========================================== 
+// SMOOTH SCROLLING 
+// ========================================== 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
     const target = document.querySelector(this.getAttribute('href'));
     if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
     }
   });
 });
 
-// ==========================================
-// NAVBAR SCROLL EFFECT & ACTIVE LINKS
-// ==========================================
+// ========================================== 
+// NAVBAR SCROLL EFFECT & ACTIVE LINKS 
+// ========================================== 
 const header = document.querySelector('header');
 const navLinks = document.querySelectorAll('.nav-link');
 
@@ -47,9 +50,9 @@ window.addEventListener('scroll', () => {
   });
 });
 
-// ==========================================
-// MOBILE MENU TOGGLE
-// ==========================================
+// ========================================== 
+// MOBILE MENU TOGGLE 
+// ========================================== 
 const hamburger = document.querySelector('.hamburger');
 const navLinksContainer = document.querySelector('.nav-links');
 
@@ -66,9 +69,9 @@ navLinks.forEach(link => {
   });
 });
 
-// ==========================================
-// COUNTER ANIMATION
-// ==========================================
+// ========================================== 
+// COUNTER ANIMATION 
+// ========================================== 
 function animateCounter(element, target, duration = 2000) {
   let start = 0;
   const increment = target / (duration / 16);
@@ -99,10 +102,11 @@ const observer = new IntersectionObserver((entries) => {
 const heroStats = document.querySelector('.hero-stats');
 if (heroStats) observer.observe(heroStats);
 
-// ==========================================
-// SERVICE CARDS TOGGLE
-// ==========================================
+// ========================================== 
+// SERVICE CARDS TOGGLE 
+// ========================================== 
 const serviceCards = document.querySelectorAll('.serviceCard');
+
 serviceCards.forEach(card => {
   card.addEventListener('click', () => {
     const isActive = card.classList.contains('active');
@@ -113,9 +117,9 @@ serviceCards.forEach(card => {
   });
 });
 
-// ==========================================
-// PORTFOLIO MODAL
-// ==========================================
+// ========================================== 
+// PORTFOLIO MODAL 
+// ========================================== 
 const modal = document.getElementById('fullViewModal');
 const modalImg = document.getElementById('fullImage');
 const closeModal = document.querySelector('.close-modal');
@@ -139,9 +143,9 @@ modal.addEventListener('click', (e) => {
   }
 });
 
-// ==========================================
-// CONFETTI ANIMATION
-// ==========================================
+// ========================================== 
+// CONFETTI ANIMATION 
+// ========================================== 
 function createConfetti() {
   const colors = ['#00ffcc', '#00b8d4', '#ff00ff', '#ffffff'];
   for (let i = 0; i < 50; i++) {
@@ -173,15 +177,15 @@ function createConfetti() {
   }
 }
 
-// ==========================================
-// CONTACT FORM WITH BACKEND INTEGRATION
-// ==========================================
+// ========================================== 
+// CONTACT FORM WITH BACKEND INTEGRATION 
+// ========================================== 
 console.log("🔍 Setting up contact form...");
 
-// Wait for DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', () => {
-  console.log("✅ DOM loaded!");
-
+// Function to initialize contact form
+const initContactForm = () => {
+  console.log("✅ Initializing contact form!");
+  
   const contactForm = document.getElementById("contactForm");
   const formMessage = document.getElementById("formMessage");
   const loadingAnimation = document.getElementById("loadingAnimation");
@@ -220,9 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("📤 Sending data:", formData);
 
     try {
-     
       const BACKEND_URL = "https://visual-mints-backend.vercel.app/";
-
       console.log("🌐 Fetching:", BACKEND_URL);
 
       const response = await fetch(BACKEND_URL, {
@@ -234,7 +236,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       console.log("📥 Response status:", response.status);
-
       const result = await response.json();
       console.log("📥 Result:", result);
 
@@ -263,13 +264,19 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   console.log("✅ Contact form setup complete!");
-});
+};
 
-// ==========================================
-// CURSOR TRAIL EFFECT
-// ==========================================
+// Initialize form when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initContactForm);
+} else {
+  initContactForm();
+}
 
-// ===== INTENSITY SETTINGS - CUSTOMIZE HERE =====
+// ========================================== 
+// CURSOR TRAIL EFFECT 
+// ========================================== 
+// ===== INTENSITY SETTINGS - CUSTOMIZE HERE ===== 
 const TRAIL_CONFIG = {
   // Size of each trail dot (px)
   // Subtle: 6-8, Medium: 10-14, Intense: 16-24
@@ -298,7 +305,7 @@ const TRAIL_CONFIG = {
   // Add blur effect (true/false)
   blur: false
 };
-// ===== END OF SETTINGS =====
+// ===== END OF SETTINGS ===== 
 
 // Create container for trail dots
 const trailContainer = document.createElement('div');
@@ -319,7 +326,6 @@ document.addEventListener('mousemove', (e) => {
 // Create trail dots at regular intervals
 setInterval(() => {
   const now = Date.now();
-
   // Only create trail if mouse has moved
   if (mouseX && mouseY && now - lastTrailTime >= TRAIL_CONFIG.frequency) {
     createTrailDot(mouseX, mouseY);
@@ -367,10 +373,3 @@ if (window.innerWidth <= 768) {
 
 console.log('✨ Cursor trail effect loaded!');
 console.log('💡 To customize: Edit TRAIL_CONFIG in script.js');
-
-
-
-
-
-
-
