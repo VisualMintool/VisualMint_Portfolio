@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
      
-      const BACKEND_URL = "https://visual-mints-backend.vercel.app/send-email";
+      const BACKEND_URL = "https://visual-mints-backend.vercel.app/";
 
       console.log("🌐 Fetching:", BACKEND_URL);
 
@@ -367,6 +367,7 @@ if (window.innerWidth <= 768) {
 
 console.log('✨ Cursor trail effect loaded!');
 console.log('💡 To customize: Edit TRAIL_CONFIG in script.js');
+
 
 
 
