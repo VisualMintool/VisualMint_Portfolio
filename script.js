@@ -20,6 +20,102 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ==========================================
+// PARTICLE CANVAS ANIMATION - NEW FEATURE
+// ==========================================
+const canvas = document.getElementById('particleCanvas');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+class Particle {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 3 + 1;
+    this.speedX = Math.random() * 3 - 1.5;
+    this.speedY = Math.random() * 3 - 1.5;
+    this.color = `rgba(0, 255, 204, ${Math.random() * 0.5})`;
+  }
+
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+
+    if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+    if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+  }
+
+  draw() {
+    ctx.fillStyle = this.color;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+const particles = [];
+const particleCount = window.innerWidth < 768 ? 30 : 60;
+
+for (let i = 0; i < particleCount; i++) {
+  particles.push(new Particle());
+}
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  for (let i = 0; i < particles.length; i++) {
+    particles[i].update();
+    particles[i].draw();
+
+    // Connect nearby particles
+    for (let j = i; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < 150) {
+        ctx.strokeStyle = `rgba(0, 255, 204, ${0.2 * (1 - distance / 150)})`;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+
+  requestAnimationFrame(animateParticles);
+}
+
+animateParticles();
+
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+// ==========================================
+// BACK TO TOP BUTTON - NEW FEATURE
+// ==========================================
+const backToTop = document.getElementById('backToTop');
+
+window.addEventListener('scroll', () => {
+  if (window.pageYOffset > 500) {
+    backToTop.classList.add('show');
+  } else {
+    backToTop.classList.remove('show');
+  }
+});
+
+backToTop.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+
+// ==========================================
 // NAVBAR SCROLL EFFECT & ACTIVE LINKS
 // ==========================================
 const header = document.querySelector('header');
@@ -143,6 +239,14 @@ modal.addEventListener('click', (e) => {
   }
 });
 
+// Close modal with Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && modal.style.display === 'flex') {
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+  }
+});
+
 // ==========================================
 // CONFETTI ANIMATION
 // ==========================================
@@ -182,7 +286,6 @@ function createConfetti() {
 // ==========================================
 console.log("🔍 Setting up contact form...");
 
-// Function to initialize contact form
 const initContactForm = () => {
   console.log("✅ Initializing contact form!");
 
@@ -276,100 +379,157 @@ if (document.readyState === 'loading') {
 // ==========================================
 // CURSOR TRAIL EFFECT
 // ==========================================
-// ===== INTENSITY SETTINGS - CUSTOMIZE HERE =====
 const TRAIL_CONFIG = {
-  // Size of each trail dot (px)
-  // Subtle: 6-8, Medium: 10-14, Intense: 16-24
   size: 12,
-
-  // Color and opacity of trail
-  // Format: 'rgba(red, green, blue, opacity)'
-  // opacity range: 0.1 (very subtle) to 1.0 (very intense)
-  color: 'rgba(0, 255, 204, 0.6)', // Current primary color
-
-  // How often to create new dots (milliseconds)
-  // Dense: 10-20, Medium: 30-50, Sparse: 60-100
+  color: 'rgba(0, 255, 204, 0.6)',
   frequency: 15,
-
-  // How long dots stay visible (milliseconds)
-  // Quick: 400-600, Medium: 700-900, Slow: 1000-1500
   duration: 500,
-
-  // Add glow effect (true/false)
   glow: true,
-
-  // Glow intensity (px)
-  // Subtle: 5-8, Medium: 10-15, Intense: 20-30
   glowSize: 10,
-
-  // Add blur effect (true/false)
   blur: false
 };
-// ===== END OF SETTINGS =====
 
-// Create container for trail dots
 const trailContainer = document.createElement('div');
 trailContainer.className = 'cursor-trail';
 document.body.appendChild(trailContainer);
 
-// Track mouse position
 let mouseX = 0;
 let mouseY = 0;
 let lastTrailTime = 0;
 
-// Update mouse position
 document.addEventListener('mousemove', (e) => {
   mouseX = e.clientX;
   mouseY = e.clientY;
 });
 
-// Create trail dots at regular intervals
 setInterval(() => {
   const now = Date.now();
-  // Only create trail if mouse has moved
   if (mouseX && mouseY && now - lastTrailTime >= TRAIL_CONFIG.frequency) {
     createTrailDot(mouseX, mouseY);
     lastTrailTime = now;
   }
 }, TRAIL_CONFIG.frequency);
 
-// Function to create a single trail dot
 function createTrailDot(x, y) {
   const dot = document.createElement('div');
   dot.className = 'trail-dot';
 
-  // Apply blur if enabled
   if (TRAIL_CONFIG.blur) {
     dot.classList.add('blur');
   }
 
-  // Position and style the dot
   dot.style.left = `${x - TRAIL_CONFIG.size / 2}px`;
   dot.style.top = `${y - TRAIL_CONFIG.size / 2}px`;
   dot.style.width = `${TRAIL_CONFIG.size}px`;
   dot.style.height = `${TRAIL_CONFIG.size}px`;
   dot.style.background = TRAIL_CONFIG.color;
 
-  // Add glow if enabled
   if (TRAIL_CONFIG.glow) {
     dot.style.boxShadow = `0 0 ${TRAIL_CONFIG.glowSize}px ${TRAIL_CONFIG.color}`;
   }
 
-  // Set animation duration
   dot.style.animationDuration = `${TRAIL_CONFIG.duration / 1000}s`;
 
   trailContainer.appendChild(dot);
 
-  // Remove dot after animation completes
   setTimeout(() => {
     dot.remove();
   }, TRAIL_CONFIG.duration);
 }
 
-// Optional: Pause trail on mobile devices (better performance)
 if (window.innerWidth <= 768) {
   trailContainer.style.display = 'none';
 }
+
+// ==========================================
+// SCROLL REVEAL ANIMATIONS - NEW FEATURE
+// ==========================================
+const revealElements = document.querySelectorAll('.about-card, .serviceCard, .portfolio-item, .stat-item, .skill-tag');
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, {
+  threshold: 0.15,
+  rootMargin: '0px 0px -50px 0px'
+});
+
+revealElements.forEach(element => {
+  element.style.opacity = '0';
+  element.style.transform = 'translateY(30px)';
+  element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  revealObserver.observe(element);
+});
+
+// ==========================================
+// TEXT TYPING EFFECT - NEW FEATURE
+// ==========================================
+const typedTextElement = document.querySelector('.typed-text');
+if (typedTextElement) {
+  const originalText = typedTextElement.textContent;
+  typedTextElement.textContent = '';
+
+  let i = 0;
+  function typeWriter() {
+    if (i < originalText.length) {
+      typedTextElement.textContent += originalText.charAt(i);
+      i++;
+      setTimeout(typeWriter, 100);
+    }
+  }
+
+  setTimeout(typeWriter, 500);
+}
+
+// ==========================================
+// MAGNETIC BUTTON EFFECT - NEW FEATURE
+// ==========================================
+const magneticButtons = document.querySelectorAll('.cta-primary, .cta-secondary, .submit-btn');
+
+magneticButtons.forEach(button => {
+  button.addEventListener('mousemove', (e) => {
+    const rect = button.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+
+    button.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+  });
+
+  button.addEventListener('mouseleave', () => {
+    button.style.transform = 'translate(0, 0)';
+  });
+});
+
+// ==========================================
+// LAZY LOADING IMAGES - NEW FEATURE
+// ==========================================
+const images = document.querySelectorAll('img');
+const imageObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const img = entry.target;
+      img.classList.add('loaded');
+      imageObserver.unobserve(img);
+    }
+  });
+});
+
+images.forEach(img => {
+  imageObserver.observe(img);
+});
+
+// ==========================================
+// PERFORMANCE MONITORING
+// ==========================================
+window.addEventListener('load', () => {
+  console.log('✨ Page fully loaded!');
+  console.log('🎨 All animations initialized');
+  console.log('⚡ Performance optimized');
+});
 
 console.log('✨ Cursor trail effect loaded!');
 console.log('💡 To customize: Edit TRAIL_CONFIG in script.js');
