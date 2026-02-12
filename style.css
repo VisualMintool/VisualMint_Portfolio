@@ -277,7 +277,7 @@ nav ul.nav-links li .nav-link.active::before {
 .logo-text {
   font-size: 1.8rem;
   font-weight: 700;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "googleapis", sans-serif;
   background: var(--gradient-1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -304,10 +304,11 @@ nav ul.nav-links li .nav-link.active::before {
 }
 
 .image-4 {
-  height: 50px;
+  height: 90px;
   width: auto;
   filter: drop-shadow(0 0 10px rgba(0, 255, 204, 0.3));
   transition: all 0.3s ease;
+  align-items: center
 }
 
 .image-4:hover {
@@ -1758,7 +1759,7 @@ footer {
 }
 
 .footer-logo-img {
-  height: 40px;
+  height: 70px;
   width: auto;
   filter: drop-shadow(0 0 8px rgba(0, 255, 204, 0.3));
   transition: all 0.3s ease;
