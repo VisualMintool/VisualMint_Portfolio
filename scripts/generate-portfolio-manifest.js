@@ -20,6 +20,10 @@ const OUT = path.join(BASE, 'manifest.json');
 const CATEGORIES = ['thumbnails', 'logos', 'social-media', 'other'];
 const EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp']);
 
+// "All" mein categories is tarteeb se dikhengi (sab se upar pehli).
+// Tarteeb badalni ho to bas in naamon ki jagah badal dein.
+const DISPLAY_ORDER = ['thumbnails', 'social-media', 'logos', 'other'];
+
 /* ---------- Image size (header se, bina kisi library ke) ---------- */
 function pngSize(b) {
   if (b.length < 24 || b.readUInt32BE(0) !== 0x89504e47) return null;
@@ -126,8 +130,13 @@ for (const category of CATEGORIES) {
   }
 }
 
-// Naye upload pehle, phir naam ke hisaab se
-items.sort((a, b) => (b.added - a.added) || natural(a.src, b.src));
+// Pehle category ki tarteeb (DISPLAY_ORDER), phir us ke andar naye upload pehle, phir naam
+const rank = c => DISPLAY_ORDER.indexOf(c);
+items.sort((a, b) =>
+  (rank(a.category) - rank(b.category)) ||
+  (b.added - a.added) ||
+  natural(a.src, b.src)
+);
 
 const manifest = { version: 1, count: items.length, items };
 const json = JSON.stringify(manifest, null, 2) + '\n';
