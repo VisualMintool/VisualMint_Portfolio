@@ -178,37 +178,6 @@
     });
   });
 
-  /* ---------- Portfolio modal ---------- */
-  const modal = $('#fullViewModal');
-  const modalImg = $('#fullImage');
-  let lastFocused = null;
-
-  function openModal(img) {
-    lastFocused = document.activeElement;
-    modalImg.src = img.currentSrc || img.src;
-    modalImg.alt = img.alt;
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    $('.close-modal', modal).focus();
-  }
-
-  function closeModal() {
-    modal.classList.remove('open');
-    modalImg.removeAttribute('src');
-    document.body.style.overflow = '';
-    if (lastFocused) lastFocused.focus();
-  }
-
-  $$('.portfolio-item').forEach(item => {
-    item.addEventListener('click', () => openModal($('img', item)));
-  });
-
-  $('.close-modal', modal).addEventListener('click', closeModal);
-  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
-  });
-
   /* ---------- Typing effect ---------- */
   const typed = $('.typed-text');
   if (typed && !reduceMotion) {
