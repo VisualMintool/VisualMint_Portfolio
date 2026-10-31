@@ -61,10 +61,12 @@ function webpSize(b) {
   return null;
 }
 
-function getSize(buf, ext) {
+// Extension par bharosa nahi: file ke andar ka asli format dekhte hain
+// (jaise poster.webp.jpg ya png data wali .jpg file bhi sahi chalti hai)
+function getSize(buf) {
   try {
-    if (ext === '.png') return pngSize(buf);
-    if (ext === '.webp') return webpSize(buf);
+    if (buf[0] === 0x89 && buf[1] === 0x50) return pngSize(buf);
+    if (buf[0] === 0x52 && buf[1] === 0x49) return webpSize(buf);
     return jpegSize(buf);
   } catch (e) {
     return null;
@@ -116,7 +118,7 @@ for (const category of CATEGORIES) {
     }
     seen.set(hash, src);
 
-    const size = getSize(buf, path.extname(file).toLowerCase()) || {};
+    const size = getSize(buf) || {};
     const item = { src, category };
     if (size.width && size.height) { item.width = size.width; item.height = size.height; }
     item.added = addedTime(abs);
